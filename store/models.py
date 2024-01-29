@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class ProductManager(models.Manager):
@@ -22,6 +23,7 @@ class Category(models.Model):
         return self.name
 
 
+
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='product', on_delete=models.CASCADE)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='product_creator')
@@ -38,6 +40,7 @@ class Product(models.Model):
     objects = models.Manager()
     products = ProductManager()
 
+
     class Meta:
         verbose_name_plural = 'Products'
         ordering = ('-created',)
@@ -47,3 +50,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

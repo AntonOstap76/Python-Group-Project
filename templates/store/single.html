@@ -25,10 +25,10 @@
           </div>
         </div>
         <hr>
-        <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">Add to
-          basket</button>
-        <button type="button" id="add-button" value="{{product.id}}" class="btn btn-light fw500">Add to
-          Favorites</button>
+        <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">Add to basket</button>
+        <button type="button" id="add-favorites-button" value="{{product.id}}" class="btn btn-light fw500">Add to Favorites</button>
+        <!-- Add Review button -->
+        <a href="{% url 'store:add_review' %}" class="btn btn-primary fw500">Add Review</a>
       </div>
     </div>
     <div class="col-md-7 col-lg-7 p-0">
